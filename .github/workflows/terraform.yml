@@ -120,8 +120,8 @@ jobs:
           echo "I am able to read env variable as true = $Applied"
         else
           echo "I am able to read env variable as false = $Applied"
-          echo $ACCESS_KEY
-          echo $DEFAULT_PASS
+          echo ${{ secrets.DO_ACCESS_KEY }}
+          echo ${{ secrets.RANCHER_DEFAULT_PASS }}
         fi
 
     # - name: Terraform Apply
