@@ -1,6 +1,6 @@
 name: 'Terraform'
 env:
-  Applied: 'false'
+  Applied: 'true'
   DestroyEnv: 'false'
   ACCESS_KEY: ${{ secrets.DO_ACCESS_KEY }}
   DEFAULT_PASS: ${{ secrets.RANCHER_DEFAULT_PASS }}
