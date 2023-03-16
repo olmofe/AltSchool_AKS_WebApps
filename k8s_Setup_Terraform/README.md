@@ -87,4 +87,4 @@ When you're finished exploring the Rancher server, use terraform to tear down al
 **NOTE: Any resources not provisioned by the quickstart are not guaranteed to be destroyed when tearing down the quickstart.**
 Make sure you tear down any resources you provisioned manually before running the destroy command.
 
-Run `terraform destroy -auto-approve` to remove all resources without prompting for confirmation.
+Run `terraform destroy -auto-approve` to remove all resources without prompting for confirmation...
