@@ -109,7 +109,7 @@ jobs:
           echo "I am able to read env variable as true = $Applied"
         else
           echo "I am able to read env variable as false = $Applied"
-
+        fi
 
     # - name: Terraform Apply
     #   if: env.Applied == false && github.ref == 'refs/heads/main' && github.event_name == 'push'
