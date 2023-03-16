@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
       #  provider: ['rancher/aws', 'rancher/azure', 'rancher/do', 'rancher/gcp', 'rancher/hcloud', 'rancher/linode', 'rancher/scw', 'rancher/outscale', 'neuvector/aws']
-       provider: ['rancher/do'] # using only digital ocean provider
+       provider: ['k8s_Setup_Terraform/rancher/do'] # using only digital ocean provider
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
