@@ -1,7 +1,7 @@
 # DigitalOcean Rancher Quickstart
 
 Two single-node Kubernetes clusters will be created from two droplets running Ubuntu 20.04 and Docker.
-Both instances will be accessible over SSH using the SSH keys `id_rsa` and `id_rsa.pub`...
+Both instances will be accessible over SSH using the SSH keys `id_rsa` and `id_rsa.pub`.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

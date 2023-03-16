@@ -24,4 +24,15 @@ This is a project implementing DDD with .Net and node on top of K8s using AKS
 env:
   Applied: false
 ```
-- push code to main branch of repo
+- If this is not your very first run, you'll need to make a change in the the `k8s_Setup_Terraform/rancher/do` folder.
+It may be negligible such as adding a text to the readme.
+This (and the Applied variable) is to ensure that you actually intend for the terrafoorm job to be run
+
+- Finally, push your code to the main branch on github and watch github actions run.
+
+
+- To pull down the environment, set DestroyEnv variable to true (Be careful of course)
+```
+env:
+ DestroyEnv: 'true'
+```

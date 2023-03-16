@@ -1,6 +1,7 @@
 name: 'Terraform'
 env:
   Applied: 'false'
+  DestroyEnv: 'false'
   ACCESS_KEY: ${{ secrets.DO_ACCESS_KEY }}
   DEFAULT_PASS: ${{ secrets.RANCHER_DEFAULT_PASS }}
   # IMPORTANT, CHANGE THIS TO TRUE IF THE INFRA HAS ALREADY BEEN DEPLOYED
@@ -126,7 +127,10 @@ jobs:
         TF_VAR_do_token: ${{ secrets.DO_ACCESS_KEY }}
         TF_VAR_rancher_server_admin_password: ${{ secrets.RANCHER_DEFAULT_PASS }}
 
-    # - name: Terraform Apply
-    #   if: env.Applied == false && github.ref == 'refs/heads/main' && github.event_name == 'push'
-    #   run: 
-    #   
+    - name: Terraform Apply
+      run: |
+        if ${DestroyEnv} == true; then
+          echo "Preparing to destroy the environment"
+          terraform destroy --auto-approve
+        fi
+      
