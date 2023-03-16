@@ -1,6 +1,6 @@
 name: 'Terraform'
 env:
-  Applied: false
+  Applied: 'false'
   # IMPORTANT, CHANGE THIS TO TRUE IF THE INFRA HAS ALREADY BEEN DEPLOYED
   # TO PREVENT RE-DEPLOYING THE ENVIRONMENT
 
@@ -8,8 +8,8 @@ on:
   push:
     branches:
     - main
-    paths:
-    - k8s_Setup_Terraform/rancher/do/**
+    # paths:
+    # - k8s_Setup_Terraform/rancher/do/**
       #if changes were maded to the terraform folder
   pull_request:
     branches:
@@ -102,13 +102,14 @@ jobs:
       if: steps.plan.outcome == 'failure'
       run: exit 1
 
-    - name: Terraform Apply
-      if: env.Applied == false
-      run: echo "I am able to read env variable as false = $Applied"
+    - name: Terraform Check
+      # if: env.Applied == false
+      run: |
+        if ${Applied} == true; then
+          echo "I am able to read env variable as true = $Applied"
+        else
+          echo "I am able to read env variable as false = $Applied"
 
-    - name: Terraform Apply
-      if: env.Applied == true
-      run: echo "I am able to read env variable as true = $Applied"
 
     # - name: Terraform Apply
     #   if: env.Applied == false && github.ref == 'refs/heads/main' && github.event_name == 'push'
