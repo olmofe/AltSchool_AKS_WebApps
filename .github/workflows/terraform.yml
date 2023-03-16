@@ -1,6 +1,8 @@
 name: 'Terraform'
 env:
   Applied: 'false'
+  ACCESS_KEY: ${{ secrets.DO_ACCESS_KEY }}
+  DEFAULT_PASS: ${{ secrets.RANCHER_DEFAULT_PASS }}
   # IMPORTANT, CHANGE THIS TO TRUE IF THE INFRA HAS ALREADY BEEN DEPLOYED
   # TO PREVENT RE-DEPLOYING THE ENVIRONMENT
 
@@ -118,8 +120,8 @@ jobs:
           echo "I am able to read env variable as true = $Applied"
         else
           echo "I am able to read env variable as false = $Applied"
-          echo ${{ secrets.DO_ACCESS_KEY }}
-          echo ${{ secrets.RANCHER_DEFAULT_PASS }}
+          echo $ACCESS_KEY
+          echo $DEFAULT_PASS
         fi
 
     # - name: Terraform Apply
