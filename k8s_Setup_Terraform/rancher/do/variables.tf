@@ -14,7 +14,7 @@ variable "do_region" {
 variable "prefix" {
   type        = string
   description = "Prefix added to names of all resources"
-  default     = "quickstart"
+  default     = "kubernetes"
 }
 
 variable "droplet_size" {
