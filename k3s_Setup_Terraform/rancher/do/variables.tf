@@ -17,10 +17,15 @@ variable "prefix" {
   default     = "kubernetes"
 }
 
-variable "droplet_size" {
+variable "droplet_server_size" {
   type        = string
-  description = "Droplet size used for all droplets"
+  description = "Droplet size used server droplets"
   default     = "s-2vcpu-4gb"
+}
+variable "droplet_node_size" {
+  type        = string
+  description = "Droplet size used node droplets"
+  default     = "s-4vcpu-8gb"
 }
 
 variable "rancher_kubernetes_version" {

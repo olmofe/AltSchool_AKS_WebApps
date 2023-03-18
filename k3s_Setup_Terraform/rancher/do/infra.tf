@@ -27,7 +27,7 @@ resource "digitalocean_droplet" "rancher_server" {
   name     = "${var.prefix}-rancher-server"
   image    = "ubuntu-20-04-x64"
   region   = var.do_region
-  size     = var.droplet_size
+  size     = var.droplet_server_size
   ssh_keys = [digitalocean_ssh_key.quickstart_ssh_key.fingerprint]
 
   provisioner "remote-exec" {
@@ -64,7 +64,7 @@ module "rancher_common" {
   admin_password     = var.rancher_server_admin_password
 
   workload_kubernetes_version = var.workload_kubernetes_version
-  workload_cluster_name       = "quickstart-do-custom"
+  workload_cluster_name       = "do-custom"
 }
 
 # DO droplet for creating a single node workload cluster
@@ -72,7 +72,7 @@ resource "digitalocean_droplet" "quickstart_node" {
   name     = "${var.prefix}-quickstart-node"
   image    = "ubuntu-20-04-x64"
   region   = var.do_region
-  size     = var.droplet_size
+  size     = var.droplet_node_size
   ssh_keys = [digitalocean_ssh_key.quickstart_ssh_key.fingerprint]
 
   user_data = templatefile(

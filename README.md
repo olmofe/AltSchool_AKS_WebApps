@@ -12,19 +12,16 @@ See how to create [**here** (`digitalOcean`)](https://docs.digitalocean.com/refe
 - Add new reposiroty secrets on Github with below Names
     - `RANCHER_DEFAULT_PASS` - this is the default admin password you want to setup rancher with
     - `DO_ACCESS_KEY` - this is the personal access token you created earlier on digitalOcean.
-- Optional: If you don't want  to use Github secrets, you can navigate to `k3s_Setup_Terraform/rancher/do` folder, and rename terraform.tfvars.example to terraform.tfvars; then customize the following variables:
+> If you don't want  to use Github secrets, you can navigate to `k3s_Setup_Terraform/rancher/do` folder, and rename terraform.tfvars.example to terraform.tfvars; then customize the following variables:
 
-- `do_token` - DigitalOcean access key
-`rancher_server_admin_password` - Admin password for created Rancher server
-
-- Optional: Modify optional variables within terraform.tfvars. eg.
+- Optional: Modify optional variables within variables.tf or your tfvars, if you're using that. eg.
 
     - `do_region` - DigitalOcean region, choose the closest instead of the default (nyc1)
-    - prefix - Prefix for all created resources
-`droplet_size` - Droplet size used, minimum is s-2vcpu-4gb but s-4vcpu-8gb could be used if within budget
+    - `prefix` - Prefix for all created resources
+
 
 - navigate to the github workflows. If you're in the terraform do folder then: `cd ../../../.github/workflows`
-- Edit the Applied variable to indicate if you have setup your environment successfully before or not
+- Edit the `Applied` environment variable to indicate if you have setup your environment successfully before or not
 
 ```
 env:
@@ -34,9 +31,14 @@ env:
 It may be negligible such as adding a text to the readme.
 This (and the Applied variable) is to ensure that you actually intend for the terrafoorm job to be run
 
+- Optional: Modify optional variables within variables.tf or your tfvars, if you're using that. eg.
+    `TF_VAR_droplet_server_size`: 's-2vcpu-4gb' #this is the minimum requirement for rancher
+    `TF_VAR_droplet_node_size`: 's-4vcpu-8gb'   #this is a fair sizing but can be reduced because of budget
+
 - Push your code to the main branch on github and watch github actions run.
-- Once it's done, look into the output of the `Terraform Apply` for text that looks like the
-below(it is probably at the end of the step)
+- This setup will create 2 clusters with 3 droplets
+- Once it's done, look into the output of the `Terraform Apply` step in your github Action logs for text that looks like the
+below(it is probably at the end of this step's logs)
 
 ```
 Apply complete! Resources: X added, 0 changed, 0 destroyed.
@@ -71,25 +73,25 @@ Of course, with rancher, the mature UI can do many of the basic things desired.
 - install kubectl on local device (preferably WSL2/linux but mac and windows are supported by kubectl also)
 - Go to rancher UI which may look something like this: https://rancher.xx.xx.xx.xx.sslip.io
 - naivagte to Cluster Management inside Global apps in the side bar
-- click on the options(right - 3 dots) of the Custom `provider` cluster. Following the earlier steps, The cluster name should be called: `quickstart-do-custom`
+- click on the options(right - 3 dots) of the Custom `provider` cluster. Following the earlier steps, The cluster name should be called: `do-custom`
 - download the kubeconfig and save in default location for kubectl `~/.kube` and save file name as `config`. so the file path will be `~/.kube/config`
-- you can also save the kubeconfig in `.kube`. You can view a sample format in `.kube/quickstart-do-custom-example.yaml`
+- you can also save the kubeconfig in `.kube`. You can view a sample format in `.kube/do-custom-example.yaml`
 
 - test your connection by listing the non-local clusters with the below command
-assuming your config file is called `quickstart-do-custom.yaml`
+assuming your config file is called `do-custom.yaml`
 ```
-kubectl config view --kubeconfig .kube/quickstart-do-custom.yaml
+kubectl config view --kubeconfig .kube/do-custom.yaml
 ```
 ```
 kubectl config get-contexts 
 ```
-> **VERY IMPORTANT:** if your kube config file, in your local machine, is in a custom location, always append the cobe config flag to your kubectl commands. For example, assuming your config file is called `quickstart-do-custom.yaml` and you are in the root directory of the project, then the above commands will then become
+> **VERY IMPORTANT:** if your kube config file, in your local machine, is in a custom location, always append the cobe config flag to your kubectl commands. For example, assuming your config file is called `do-custom.yaml` and you are in the root directory of the project, then the above commands will then become
 
 ```
-kubectl config view --kubeconfig .kube/quickstart-do-custom.yaml
+kubectl config view --kubeconfig .kube/do-custom.yaml
 ```
 ```
-kubectl config get-contexts --kubeconfig .kube/quickstart-do-custom.yaml
+kubectl config get-contexts --kubeconfig .kube/do-custom.yaml
 ```
 ---
 # Setup Socks WebApp Example(Optional)
@@ -124,7 +126,7 @@ kubectl apply -f complete-demo.yaml
 Fleet can also manage deployments from git of raw Kubernetes YAML, Helm charts, Kustomize, or any combination of the three. Regardless of the source, all resources are dynamically turned into Helm charts, and Helm is used as the engine to deploy all resources in the cluster
 
 ### **install helm locally (Optional).** 
-- See guide [**here** (`helm`)](https://helm.sh/docs/intro/install/).**
+- See guide [**here** (`helm`)](https://helm.sh/docs/intro/install/).
 For linux, the below will work.
 You can skip this though, if you intend to run the helm command from withing the cluster's kubectl.
 ```
@@ -143,7 +145,7 @@ helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
 helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
     fleet https://github.com/rancher/fleet/releases/download/v0.6.0-rc.5/fleet-0.6.0-rc.5.tgz
 ```
-> if that fails from your local machine, try the command from kubectl within the each cluster(eg.`quickstart-do-custom` and `local`)  
+> if that fails from your local machine, try the command from kubectl within the each cluster(eg.`do-custom` and `local`)  
 
 - Fleet should be ready to use now for single/multi cluster. You can check the status of the Fleet controller pods by running the below commands.
 ```
@@ -184,9 +186,9 @@ fleet-controller-64f49d756b-n57wq   1/1     Running   0          3m21s
 
 ```
 kubectl config get-contexts
-kubectl config use-context quickstart-do-custom
+kubectl config use-context do-custom
 ```
->Remember to use the --kubeconfig flag if your kubeconfig file is in a custom location eg. `--kubeconfig .kube/quickstart-do-custom.yaml`
+>Remember to use the --kubeconfig flag if your kubeconfig file is in a custom location eg. `--kubeconfig .kube/do-custom.yaml`
 - Verify the namespace and pods that were created.
 ```
 kubectl get namespaces
@@ -220,17 +222,6 @@ The scope of this guide does not cover private repos or air-gapped envoronments.
 kubectl -n fleet-defualt get fleet
 ```
 > If something goes wrong, you can delete the repo, wait a while for any created namespaces to be deleted, then try again.
+> If you encounter an issuficient memory/cpu error on the deployment, you would need to scale up the cluster nodes or add more nodes to the cluster.
 
-
-# Setup Socks shop Example
-*To account for resource constraint, I have applied resource constraint on containers that previously did not have it. see below:
-```
-resources:
-    limits:
-    cpu: 300m
-    memory: 1000Mi
-    requests:
-    cpu: 100m
-    memory: 300Mi
-```
 
