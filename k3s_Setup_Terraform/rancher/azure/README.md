@@ -32,12 +32,12 @@ Both instances will have wide-open security groups and will be accessible over S
 
 | Name | Type |
 |------|------|
-| [azurerm_linux_virtual_machine.quickstart-node](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/linux_virtual_machine) | resource |
+| [azurerm_linux_virtual_machine.cluster-node](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/linux_virtual_machine) | resource |
 | [azurerm_linux_virtual_machine.rancher_server](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/linux_virtual_machine) | resource |
-| [azurerm_network_interface.quickstart-node-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/network_interface) | resource |
+| [azurerm_network_interface.cluster-node-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/network_interface) | resource |
 | [azurerm_network_interface.quickstart-windows-node-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/network_interface) | resource |
 | [azurerm_network_interface.rancher-server-interface](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/network_interface) | resource |
-| [azurerm_public_ip.quickstart-node-pip](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/public_ip) | resource |
+| [azurerm_public_ip.cluster-node-pip](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/public_ip) | resource |
 | [azurerm_public_ip.quickstart-windows-node-pip](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/public_ip) | resource |
 | [azurerm_public_ip.rancher-server-pip](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/public_ip) | resource |
 | [azurerm_resource_group.rancher-quickstart](https://registry.terraform.io/providers/hashicorp/azurerm/3.16.0/docs/resources/resource_group) | resource |

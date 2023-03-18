@@ -7,5 +7,5 @@ output "rancher_node_ip" {
 }
 
 output "workload_node_ip" {
-  value = azurerm_linux_virtual_machine.quickstart-node.public_ip_address
+  value = azurerm_linux_virtual_machine.cluster-node.public_ip_address
 }

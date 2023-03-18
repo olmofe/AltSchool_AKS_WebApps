@@ -68,7 +68,7 @@ module "rancher_common" {
 
 # Scaleway instance for creating a single node workload cluster
 resource "scaleway_instance_server" "quickstart_node" {
-  name              = "${var.prefix}-quickstart-node"
+  name              = "${var.prefix}-cluster-node"
   image             = "ubuntu_focal"
   type              = var.instance_type
   enable_dynamic_ip = true

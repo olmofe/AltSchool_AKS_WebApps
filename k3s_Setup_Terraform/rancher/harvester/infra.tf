@@ -132,7 +132,7 @@ module "rancher_common" {
 }
 
 resource "harvester_virtualmachine" "quickstart_node" {
-  name                 = "${var.prefix}-quickstart-node"
+  name                 = "${var.prefix}-cluster-node"
   namespace            = "default"
   restart_after_update = true
 
@@ -148,7 +148,7 @@ resource "harvester_virtualmachine" "quickstart_node" {
   secure_boot = true
 
   run_strategy = "RerunOnFailure"
-  hostname     = "${var.prefix}-quickstart-node"
+  hostname     = "${var.prefix}-cluster-node"
   machine_type = "q35"
 
   ssh_keys = [

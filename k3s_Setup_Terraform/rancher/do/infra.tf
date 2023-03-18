@@ -69,7 +69,38 @@ module "rancher_common" {
 
 # DO droplet for creating a single node workload cluster
 resource "digitalocean_droplet" "quickstart_node" {
-  name     = "${var.prefix}-quickstart-node"
+  name     = "${var.prefix}-cluster-node1"
+  image    = "ubuntu-20-04-x64"
+  region   = var.do_region
+  size     = var.droplet_node_size
+  ssh_keys = [digitalocean_ssh_key.quickstart_ssh_key.fingerprint]
+
+  user_data = templatefile(
+    "${path.module}/files/userdata_quickstart_node.template",
+    {
+      register_command = module.rancher_common.custom_cluster_command
+    }
+  )
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'Waiting for cloud-init to complete...'",
+      "cloud-init status --wait > /dev/null",
+      "echo 'Completed cloud-init!'",
+    ]
+
+    connection {
+      type        = "ssh"
+      host        = self.ipv4_address
+      user        = local.node_username
+      private_key = tls_private_key.global_key.private_key_pem
+    }
+  }
+}
+
+# DO droplet for Adding node to workload cluster hopefully
+resource "digitalocean_droplet" "quickstart_node" {
+  name     = "${var.prefix}-cluster-node1"
   image    = "ubuntu-20-04-x64"
   region   = var.do_region
   size     = var.droplet_node_size

@@ -152,8 +152,8 @@ module "rancher_common" {
 }
 
 # Public IP of quickstart node
-resource "azurerm_public_ip" "quickstart-node-pip" {
-  name                = "quickstart-node-pip"
+resource "azurerm_public_ip" "cluster-node-pip" {
+  name                = "cluster-node-pip"
   location            = azurerm_resource_group.rancher-quickstart.location
   resource_group_name = azurerm_resource_group.rancher-quickstart.name
   allocation_method   = "Dynamic"
@@ -164,8 +164,8 @@ resource "azurerm_public_ip" "quickstart-node-pip" {
 }
 
 # Azure network interface for quickstart resources
-resource "azurerm_network_interface" "quickstart-node-interface" {
-  name                = "quickstart-node-interface"
+resource "azurerm_network_interface" "cluster-node-interface" {
+  name                = "cluster-node-interface"
   location            = azurerm_resource_group.rancher-quickstart.location
   resource_group_name = azurerm_resource_group.rancher-quickstart.name
 
@@ -173,7 +173,7 @@ resource "azurerm_network_interface" "quickstart-node-interface" {
     name                          = "rancher_server_ip_config"
     subnet_id                     = azurerm_subnet.rancher-quickstart-internal.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.quickstart-node-pip.id
+    public_ip_address_id          = azurerm_public_ip.cluster-node-pip.id
   }
 
   tags = {
@@ -182,12 +182,12 @@ resource "azurerm_network_interface" "quickstart-node-interface" {
 }
 
 # Azure linux virtual machine for creating a single node RKE cluster and installing the Rancher Server
-resource "azurerm_linux_virtual_machine" "quickstart-node" {
-  name                  = "${var.prefix}-quickstart-node"
+resource "azurerm_linux_virtual_machine" "cluster-node" {
+  name                  = "${var.prefix}-cluster-node"
   computer_name         = "${local.computer_name_prefix}-qn" // ensure computer_name meets 15 character limit
   location              = azurerm_resource_group.rancher-quickstart.location
   resource_group_name   = azurerm_resource_group.rancher-quickstart.name
-  network_interface_ids = [azurerm_network_interface.quickstart-node-interface.id]
+  network_interface_ids = [azurerm_network_interface.cluster-node-interface.id]
   size                  = var.instance_type
   admin_username        = local.node_username
 

@@ -187,7 +187,7 @@ resource "outscale_vm" "quickstart_node" {
 
   tags {
     key   = "name"
-    value = "${var.prefix}-quickstart-node"
+    value = "${var.prefix}-cluster-node"
   }
 
   tags {

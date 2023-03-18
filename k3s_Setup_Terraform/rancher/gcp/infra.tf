@@ -23,7 +23,7 @@ resource "google_compute_address" "rancher_server_address" {
 
 # GCP Public Compute Address for quickstart node
 resource "google_compute_address" "quickstart_node_address" {
-  name = "quickstart-node-ipv4-address"
+  name = "cluster-node-ipv4-address"
 }
 
 # Firewall Rule to allow all traffic
@@ -107,7 +107,7 @@ resource "google_compute_instance" "quickstart_node" {
     google_compute_firewall.rancher_fw_allowall,
   ]
 
-  name         = "${var.prefix}-quickstart-node"
+  name         = "${var.prefix}-cluster-node"
   machine_type = var.machine_type
   zone         = var.gcp_zone
 

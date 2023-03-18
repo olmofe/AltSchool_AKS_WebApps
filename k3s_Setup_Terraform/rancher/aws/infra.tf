@@ -192,7 +192,7 @@ resource "aws_instance" "quickstart_node" {
   }
 
   tags = {
-    Name    = "${var.prefix}-quickstart-node"
+    Name    = "${var.prefix}-cluster-node"
     Creator = "rancher-quickstart"
   }
 }
