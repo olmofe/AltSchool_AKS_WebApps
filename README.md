@@ -163,6 +163,18 @@ chmod 700 get_helm.sh
 
 ./get_helm.sh
 ```
+### **Setup Persistent Storage Class**
+> A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes. It represents a storage volume that is used to persist application data.
+
+- navigate to the `.kube` folder.
+- Add the storage class (current name is `longhorn-test`)
+```
+kubectl apply -f storage-class.yaml
+```
+- if  something goes wrong, you can delete the storage class and try again eg.
+```
+kubectl delete storageclass longhorn-test
+```
 
 ### **install Fleet Helm charts**
 > **_NOTE:_**  This step may fail if you haven't saved your kubeconfig file  in `~/.kube` folder, **Alternatively, just run the command in the desired cluster's CLI (top right).**

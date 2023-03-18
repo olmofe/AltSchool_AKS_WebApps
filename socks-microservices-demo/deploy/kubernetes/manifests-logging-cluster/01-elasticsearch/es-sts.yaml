@@ -74,7 +74,8 @@ spec:
         app: elasticsearch
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "local-path"
+      storageClassName: "longhorn-test"
+      # storageClassName: "local-path"
       resources:
         requests:
           storage: 3Gi
