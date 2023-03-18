@@ -67,8 +67,10 @@ env:
 ```
 
 ---
-# Setup up kubeconfig on local machine
->Kubeconfig allows us to access kubernetes APIs and manage our cluster though a CLI
+# [Optional] Setup up kubeconfig on local machine
+> This Section is optional as kubectl is available in rancher cluster CLI.
+
+> Kubeconfig allows us to access kubernetes APIs and manage our cluster though a CLI
 Of course, with rancher, the mature UI can do many of the basic things desired.
 
 - install kubectl on local device (preferably WSL2/linux but mac and windows are supported by kubectl also)
@@ -140,7 +142,8 @@ Add elastic and kibana to `logging` namespace (while still inside `socks-microse
 > Fleet is a container management and deployment engine designed to offer users more control on the local cluster and constant monitoring through GitOps.
 Fleet can also manage deployments from git of raw Kubernetes YAML, Helm charts, Kustomize, or any combination of the three. Regardless of the source, all resources are dynamically turned into Helm charts, and Helm is used as the engine to deploy all resources in the cluster
 
-### **install helm locally (Optional).** 
+### **[Optional] install helm locally.** 
+> This Section is optional as helm is available in rancher cluster CLI.
 - See guide [**here** (`helm`)](https://helm.sh/docs/intro/install/).
 For linux, the below will work.
 You can skip this though, if you intend to run the helm command from withing the cluster's kubectl.
@@ -165,14 +168,14 @@ kubectl delete storageclass longhorn-test
 ```
 
 ### **install Fleet Helm charts**
-> **_NOTE:_**  This step may fail if you haven't saved your kubeconfig file  in `~/.kube` folder, **Alternatively, just run the command in the desired cluster's CLI (top right).**
+> **_NOTE:_**  This step may fail if run from local device but you haven't saved your kubeconfig file  in `~/.kube` folder, **Alternatively, just run the command in the desired cluster's CLI (top right).**
 ```
 helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
     fleet-crd https://github.com/rancher/fleet/releases/download/v0.6.0-rc.5/fleet-crd-0.6.0-rc.5.tgz
 helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
     fleet https://github.com/rancher/fleet/releases/download/v0.6.0-rc.5/fleet-0.6.0-rc.5.tgz
 ```
-> If a failure occurs here or down the workflow, run the above commands from kubectl within the desired cluster(eg.`do-custom` and `local`)  
+> Remember you can run the commands from kubectl within the desired cluster in rancher CLI(eg.`do-custom` and `local`)  
 
 - Fleet should be ready to use now for single/multi cluster. You can check the status of the Fleet controller pods by running the below commands.
 ```
@@ -185,7 +188,7 @@ NAME                                READY   STATUS    RESTARTS   AGE
 fleet-controller-xxxxxxx-xxxx   1/1     Running   0          3m21s
 ```
 
-### **Setup cluster Group (Optional, for multi-cluster)**
+### **[Optional] Setup cluster Group (for multi-cluster)**
 > A Cluster Group will group multiple clusters together and manage them identically.
 - Navigate to the `.kube` folder.
 - Edit the `kube-group.yaml` file. You can add multiple key/values under the `matchLabels` field.
