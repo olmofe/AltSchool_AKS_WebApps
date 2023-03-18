@@ -159,11 +159,11 @@ fleet-controller-64f49d756b-n57wq   1/1     Running   0          3m21s
 ```
 
 ### **Setup cluster Group (Optional, for multi-cluster)**
-> A cluster group multiple clusters together and manage them identically.
+> A Cluster Group will group multiple clusters together and manage them identically.
 - Navigate to the `.kube` folder.
 - Edit the `kube-group.yaml` file. You can add multiple key/values under the `matchLabels` field.
 - copy all it's content.
-- Head over to rancher UI ### **GLOBAL APPS** -> **Continuous Delivery**
+- Head over to rancher UI **GLOBAL APPS** -> **Continuous Delivery**
 - Click on the drop down in the upper right and change option to `fleet-default` (this includes non-local clusters).
 - Inside the page, Click on Cluster Group ->  click on create (right) -> `Select Edit as YAML`(bottom right).
 - paste the content of the kube-group.yaml in the field and click Create.

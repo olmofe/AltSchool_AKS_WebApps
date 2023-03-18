@@ -8,5 +8,9 @@ output "rancher_node_ip" {
 }
 
 output "workload_node_ip" {
-  value = digitalocean_droplet.quickstart_node.ipv4_address
+  value = digitalocean_droplet.cluster_node1.ipv4_address
+}
+
+output "workload_node_ip" {
+  value = digitalocean_droplet.cluster_node2.ipv4_address
 }

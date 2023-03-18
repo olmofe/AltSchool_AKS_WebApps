@@ -31,7 +31,7 @@ Both instances will be accessible over SSH using the SSH keys `id_rsa` and `id_r
 
 | Name | Type |
 |------|------|
-| [digitalocean_droplet.quickstart_node](https://registry.terraform.io/providers/digitalocean/digitalocean/2.20.0/docs/resources/droplet) | resource |
+| [digitalocean_droplet.cluster_node](https://registry.terraform.io/providers/digitalocean/digitalocean/2.20.0/docs/resources/droplet) | resource |
 | [digitalocean_droplet.rancher_server](https://registry.terraform.io/providers/digitalocean/digitalocean/2.20.0/docs/resources/droplet) | resource |
 | [digitalocean_ssh_key.quickstart_ssh_key](https://registry.terraform.io/providers/digitalocean/digitalocean/2.20.0/docs/resources/ssh_key) | resource |
 | [local_file.ssh_public_key_openssh](https://registry.terraform.io/providers/hashicorp/local/2.2.3/docs/resources/file) | resource |

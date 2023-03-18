@@ -68,7 +68,7 @@ module "rancher_common" {
 }
 
 # DO droplet for creating a single node workload cluster
-resource "digitalocean_droplet" "quickstart_node" {
+resource "digitalocean_droplet" "cluster_node1" {
   name     = "${var.prefix}-cluster-node1"
   image    = "ubuntu-20-04-x64"
   region   = var.do_region
@@ -99,8 +99,8 @@ resource "digitalocean_droplet" "quickstart_node" {
 }
 
 # DO droplet for Adding node to workload cluster hopefully
-resource "digitalocean_droplet" "quickstart_node" {
-  name     = "${var.prefix}-cluster-node1"
+resource "digitalocean_droplet" "cluster_node2" {
+  name     = "${var.prefix}-cluster-node2"
   image    = "ubuntu-20-04-x64"
   region   = var.do_region
   size     = var.droplet_node_size
