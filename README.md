@@ -182,7 +182,7 @@ kubectl -n cattle-fleet-system get pods -l app=fleet-controller
 - The last command should show something like the below
 ```
 NAME                                READY   STATUS    RESTARTS   AGE
-fleet-controller-64f49d756b-n57wq   1/1     Running   0          3m21s
+fleet-controller-xxxxxxx-xxxx   1/1     Running   0          3m21s
 ```
 
 ### **Setup cluster Group (Optional, for multi-cluster)**
@@ -207,8 +207,8 @@ fleet-controller-64f49d756b-n57wq   1/1     Running   0          3m21s
 ### **Add Git Repo**
 
 **Delete Existing namespace**
-- If you followed the optional Setup Socks WebApp Example above, then you'll need to delete that namespace first to avoid deployment conflict; otherwise you cam move to the next section.
-- Go to rancher homepage.
+> If you fhave deployed workloads to a namespace using maybe kubectl and you want to deploy the _exact same workloads_ to the same namespace, then, it's best to delete that namespace first to avoid deployment conflict; 
+If this doesnt apply to your case, then you can move to the next section.
 - Confirm or Switch to the namespace where you have deployed the socks example.
 
 ```
@@ -216,7 +216,7 @@ kubectl config get-contexts
 kubectl config use-context do-custom
 ```
 >Remember to use the --kubeconfig flag if your kubeconfig file is in a custom location eg. `--kubeconfig .kube/do-custom.yaml`
-- Verify the namespace and pods that were created.
+- Verify the namespace and pods that were created. eg.
 ```
 kubectl get namespaces
 kubectl get pods -n sock-shop
