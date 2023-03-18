@@ -109,7 +109,7 @@ kubectl config get-contexts
 kubectl config use-context valid-cluster-name-here 
 ```
 
-- Now Create the desired namespaces in the current cluster (you should still be in the kubernetes folder)
+- Now install the monitoring workloads (you should still be in the kubernetes folder)
 
 ~~kubectl create namespace kube-system~~
 ```
@@ -120,25 +120,33 @@ kubectl create -f manifests-monitoring
 ```
 kubectl get namespaces
 kubectl -n kube-system get deployments
-```
+kubectl get deployments -n logging
+``` 
 
 - If kibana and elastic search exist already, you can delete them.
 > Only because this is a test environent of course.
 ```
-kubectl delete deployments elasticsearch -n kube-system
-kubectl delete deployments kibana -n kube-system
-
-kubectl delete deployments elasticsearch -n logging
-kubectl delete deployments kibana -n logging
+kubectl delete deployments elasticsearch -n namespace-where-it-is
+kubectl delete deployments kibana -n namespace-where-it-is
 ``` 
 
-Add elastic and kibana and elastic to `kube-system` namespace
+Add elastic and kibana and elastic to `logging` namespace (while still inside `socks-microservices-demo/deploy/kubernetes` folder)
+```
+kubectl create -R -f manifests-logging-cluster 
+```
+**OR** you can create it in order
 ```
 kubectl create -f manifests-logging-cluster
+kubectl create -f manifests-logging-cluster/01-elasticsearch
+kubectl create -f manifests-logging-cluster/02-kibana
+kubectl create -f manifests-logging-cluster/03-fluentd
 ```
+> It's fine if you get an error that a resource already exists
 
-```
->if you get an error, you can just wait for a while or try again.
+> if you get other errors, you can just wait for a while or try again.
+
+- go to the workload in Rancher UI `do-cluster | Deployments | Namespace: logging | Endpoints`
+- click on the endpoint and proceed to use kibana
 
 ---
 # Setup Fleet for CD
