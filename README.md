@@ -291,6 +291,5 @@ kubectl delete ServiceAccount fluentd -n kube-system
 
 > If something else goes wrong, you can delete the repo, wait a while for any created namespaces to be deleted, then try again.
 
-kubectl get clusterroles
-
+### **Add custom DNS**
 
