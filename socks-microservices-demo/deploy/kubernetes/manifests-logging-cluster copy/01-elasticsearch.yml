@@ -5,7 +5,7 @@ metadata:
   name: elasticsearch
   labels:
     name: elasticsearch
-  namespace: logging
+  namespace: kube-system
 spec:
   replicas: 1
   selector:
@@ -29,7 +29,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: elasticsearch
-  namespace: logging
+  namespace: kube-system
   labels:
     app: elasticsearch
 spec:

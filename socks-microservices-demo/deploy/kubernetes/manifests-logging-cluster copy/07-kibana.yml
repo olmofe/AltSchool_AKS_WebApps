@@ -5,7 +5,7 @@ metadata:
   name: kibana
   labels:
     name: kibana
-  namespace: logging
+  namespace: kube-system
 spec:
   replicas: 1
   selector:

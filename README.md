@@ -144,7 +144,7 @@ kubectl delete namespace logging
 
 - go to the workload in Rancher UI `do-cluster | Deployments 
 - Grafana and Prometheus will be in `Namespace: monitoring`
-- Kibana will be in `Namespace: logging`
+- Kibana will be in `namespace: kube-system`
 - click on the endpoints and proceed to use their UI.
 
 ---
@@ -246,7 +246,14 @@ The scope of this guide does not cover private repos or air-gapped envoronments.
 > You can also use the form UI to add the GitRepo details.
 - Check the status of what the fleet is doing
 ```
-kubectl -n fleet-defualt get fleet
+# Downstream cluster
+$ kubectl logs -l app=fleet-agent -n cattle-fleet-system
+# Local cluster
+$ kubectl logs -l app=fleet-agent -n cattle-local-fleet-system
+```
+```
+kubectl -n cattle-fleet-system logs -l app=fleet-controller
+kubectl -n cattle-fleet-system get pods -l app=fleet-controller
 ```
 > If something goes wrong, you can delete the repo, wait a while for any created namespaces to be deleted, then try again.
 > If you encounter an issuficient memory/cpu error on the deployment, you would need to scale up the cluster nodes or add more nodes to the cluster.
