@@ -95,7 +95,8 @@ kubectl config view --kubeconfig .kube/do-custom.yaml
 kubectl config get-contexts --kubeconfig .kube/do-custom.yaml
 ```
 ---
-# Setup Monitorring
+# [Optional] Setup Monitorring and Metrics (Manual)
+> This section optional as we will delete this manual deployment and add it to fleet cd later on.
 - navigate to socks kubernetes folder: 
 `cd socks-microservices-demo/deploy/kubernetes`
 
@@ -115,7 +116,6 @@ kubectl config use-context valid-cluster-name-here
 kubectl create namespace monitoring
 kubectl create -f manifests-monitoring
 ```
-> Note that We will delete this manual deployment and add it to fleet cd shortly.
 
 - [Ignore this] Just some random, maybe useful commands
 ```
