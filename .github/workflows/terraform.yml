@@ -12,13 +12,13 @@ on:
     branches:
     - main
     paths:
-    - k8s_Setup_Terraform/rancher/do/**
+    - k3s_Setup_Terraform/rancher/do/**
       #if changes were maded to the terraform folder
   pull_request:
     branches:
     - main
     paths:
-    - k8s_Setup_Terraform/rancher/do/**
+    - k3s_Setup_Terraform/rancher/do/**
       #if changes were maded to the terraform folder
 
 jobs:
