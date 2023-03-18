@@ -165,7 +165,7 @@ chmod 700 get_helm.sh
 ```
 
 ### **install Fleet Helm charts**
-> **_NOTE:_**  This step may fail if you haven't saved your kubeconfig file  in `~/.kube` folder, Alternatively, just run the command in each cluster's CLI (top right).
+> **_NOTE:_**  This step may fail if you haven't saved your kubeconfig file  in `~/.kube` folder, **Alternatively, just run the command in the desired cluster's CLI (top right).**
 ```
 helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
     fleet-crd https://github.com/rancher/fleet/releases/download/v0.6.0-rc.5/fleet-crd-0.6.0-rc.5.tgz
