@@ -268,7 +268,27 @@ $ kubectl logs -l app=fleet-agent -n cattle-local-fleet-system
 kubectl -n cattle-fleet-system logs -l app=fleet-controller
 kubectl -n cattle-fleet-system get pods -l app=fleet-controller
 ```
-> If something goes wrong, you can delete the repo, wait a while for any created namespaces to be deleted, then try again.
-> If you encounter an issuficient memory/cpu error on the deployment, you would need to scale up the cluster nodes or add more nodes to the cluster.
+
+> If you encounter an inssuficient memory/cpu error on the deployment, you would need to scale up the cluster nodes or add more nodes to the cluster.
+> if you encounter an error that a resource already exists, then you might need to delete the resource manually first.
+eg.
+
+```
+Rendered manifests contain a resource that already exists. Unable to continue with
+ install: ClusterRoleBinding "fluentd" in namespace ""
+```
+then
+```
+kubectl get clusterroles
+kubectl get clusterrolebindings
+
+kubectl delete clusterrolebinding fluentd
+kubectl delete clusterrole fluentd
+```
+> **_NOTE:_**  Be cautious when dealing with roles and role baindings
+
+> If something else goes wrong, you can delete the repo, wait a while for any created namespaces to be deleted, then try again.
+
+kubectl get clusterroles
 
 
