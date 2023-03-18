@@ -238,7 +238,7 @@ kubectl delete namespace sock-shop
 
 - Go to Rancher UI (still in `Continuous Delivery` | `fleet-default`)
 - Select `Git Repos` -> `Add Repository` -> `Edit As YAML`
-> make sure the referenced has been pushed and is available online.
+> **ALWAYS** make sure the referenced has been pushed and is available online.
 The scope of this guide does not cover private repos or air-gapped envoronments.
 
 - paste the `socks-git-repo.yaml` content in rancher and select `Create`
