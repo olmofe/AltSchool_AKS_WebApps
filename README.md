@@ -95,7 +95,7 @@ kubectl config view --kubeconfig .kube/do-custom.yaml
 kubectl config get-contexts --kubeconfig .kube/do-custom.yaml
 ```
 ---
-# Setup Monitorring and Logging
+# Setup Monitorring
 - navigate to socks kubernetes folder: 
 `cd socks-microservices-demo/deploy/kubernetes`
 
@@ -111,10 +111,11 @@ kubectl config use-context valid-cluster-name-here
 - [Optional] Review /manifests-monitoring folder for any customizations you would like to do.
 - Now Add the monitoring workloads (while still inside `socks-microservices-demo/deploy/kubernetes` folder)
 
-~~kubectl create namespace kube-system~~
 ```
+kubectl create namespace monitoring
 kubectl create -f manifests-monitoring
 ```
+> Note that We will delete this manual deployment and add it to fleet cd shortly.
 
 - [Ignore this] Just some random, maybe useful commands
 ```
@@ -123,29 +124,16 @@ kubectl -n kube-system get deployments
 kubectl get deployments -n logging
 kubectl delete deployments kibana -n namespace-where-it-is
 ``` 
-- [Optional] Review /manifests-logging-cluster folder
+~~- [Optional] Review /manifests-logging-cluster folder
 Add elastic and kibana to `logging` namespace (while still inside `socks-microservices-demo/deploy/kubernetes` folder)
-```
-kubectl create -R -f manifests-logging-cluster 
-```
-**OR** you can create it in order
-```
-kubectl create -f manifests-logging-cluster
-kubectl create -f manifests-logging-cluster/01-elasticsearch
-kubectl create -f manifests-logging-cluster/02-kibana
-kubectl create -f manifests-logging-cluster/03-fluentd
-```
-> It's fine if you get an error that a resource already exists
-
-> if you get other errors, you can just delete the namespace, wait for a while or try again.
-```
-kubectl delete namespace logging
-```
-
-- go to the workload in Rancher UI `do-cluster | Deployments 
-- Grafana and Prometheus will be in `Namespace: monitoring`
-- Kibana will be in `namespace: kube-system`
-- click on the endpoints and proceed to use their UI.
+| kubectl create -R -f manifests-logging-cluster
+| It's fine if you get an error that a resource already exists
+| if you get other errors, you can just delete the namespace, wait for a while or try again.
+| kubectl delete namespace logging
+| go to the workload in Rancher UI `do-cluster | Deployments 
+| Grafana and Prometheus will be in `Namespace: monitoring`
+| Kibana will be in `namespace: kube-system`
+| click on the endpoints and proceed to use their UI.~~
 
 ---
 # Setup Fleet for CD
@@ -219,7 +207,7 @@ fleet-controller-xxxxxxx-xxxx   1/1     Running   0          3m21s
 ### **Add Git Repo**
 
 **Delete Existing namespace**
-> If you fhave deployed workloads to a namespace using maybe kubectl and you want to deploy the _exact same workloads_ to the same namespace, then, it's best to delete that namespace first to avoid deployment conflict; 
+> If you have deployed workloads to a namespace (eg. using kubectl to deploy monitoring) and you want to deploy the _exact same workloads_ to the same namespace, then, it's best to delete that namespace first to avoid deployment conflict; 
 If this doesnt apply to your case, then you can move to the next section.
 - Confirm or Switch to the namespace where you have deployed the socks example.
 
@@ -237,6 +225,7 @@ kubectl get pods -n sock-shop
 - Delete the namespace and it's content
 ```
 kubectl delete namespace sock-shop
+kubectl delete namespace monitoring
 ```
 
 **Add Git Repo Cont'd**
