@@ -226,6 +226,16 @@ kubectl get pods -n sock-shop
 ```
 kubectl delete namespace sock-shop
 kubectl delete namespace monitoring
+
+kubectl delete clusterrolebinding prometheus
+kubectl delete clusterrolebinding kube-state-metrics
+
+kubectl delete clusterrole prometheus
+kubectl delete clusterrole kube-state-metrics
+
+kubectl delete ServiceAccount prometheus -n monitoring
+kubectl delete ServiceAccount kube-state-metrics -n monitoring
+kubectl delete ServiceAccount node-exporter -n monitoring
 ```
 
 **Add Git Repo Cont'd**
@@ -273,8 +283,19 @@ kubectl get clusterrolebindings
 kubectl get ServiceAccount -n kube-system
 
 kubectl delete clusterrolebinding fluentd
+kubectl delete clusterrolebinding prometheus
+kubectl delete clusterrolebinding kube-state-metrics
+
+
 kubectl delete clusterrole fluentd
+kubectl delete clusterrole prometheus
+kubectl delete clusterrole kube-state-metrics
+
+
 kubectl delete ServiceAccount fluentd -n kube-system
+kubectl delete ServiceAccount prometheus -n monitoring
+kubectl delete ServiceAccount kube-state-metrics -n monitoring
+kubectl delete ServiceAccount node-exporter -n monitoring
 ```
 > **_NOTE:_**  Be cautious when dealing with roles and role baindings
 
