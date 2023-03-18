@@ -281,9 +281,11 @@ then
 ```
 kubectl get clusterroles
 kubectl get clusterrolebindings
+kubectl get ServiceAccount -n kube-system
 
 kubectl delete clusterrolebinding fluentd
 kubectl delete clusterrole fluentd
+kubectl delete ServiceAccount fluentd -n kube-system
 ```
 > **_NOTE:_**  Be cautious when dealing with roles and role baindings
 
