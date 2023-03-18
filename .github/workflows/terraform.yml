@@ -1,6 +1,6 @@
 name: 'Terraform'
 env:
-  Applied: 'false'
+  Applied: 'true'
   DestroyEnv: 'false'
   ACCESS_KEY: ${{ secrets.DO_ACCESS_KEY }}
   DEFAULT_PASS: ${{ secrets.RANCHER_DEFAULT_PASS }}
@@ -129,7 +129,7 @@ jobs:
         TF_VAR_droplet_server_size: 's-2vcpu-4gb'
         TF_VAR_droplet_node_size: 's-4vcpu-8gb'
 
-    - name: Terraform Apply
+    - name: Terraform Destroy
       run: |
         if ${DestroyEnv} == true; then
           echo "Preparing to destroy the environment"

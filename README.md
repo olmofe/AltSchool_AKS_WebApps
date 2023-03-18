@@ -28,7 +28,7 @@ env:
   Applied: 'false'
 ```
 - If this is not your very first run, you'll need to make a change in the the `k3s_Setup_Terraform/rancher/do` folder.
-It may be negligible such as adding a text to the readme.
+It may be negligible such as adding a random text to the readme.
 This (and the Applied variable) is to ensure that you actually intend for the terrafoorm job to be run
 
 - Optional: Modify optional variables within variables.tf or your tfvars, if you're using that. eg.
@@ -50,7 +50,8 @@ rancher_server_url = https://rancher.xx.xx.xx.xx.sslip.io
 workload_node_ip = yy.yy.yy.yy
 ```
 
-- Paste the `rancher_server_url` from the output above into the browser. Log in when prompted (default username is `admin`, use the password set in `rancher_server_admin_password` earlier).
+- Paste the `rancher_server_url` from the output above into the browser. Log in when prompted (default username is `admin`, use the password set in `rancher_server_admin_password` earlier) to log in and you will be taken o the clusters page.
+> Wait for all clusters to be in `Active` State before proceeding.
 
 
 - To pull down the environment, set DestroyEnv variable to true, make any kind of change in the `k3s_Setup_Terraform/rancher/do` folder and push to min. (Be careful of course)
@@ -58,7 +59,7 @@ workload_node_ip = yy.yy.yy.yy
 env:
  DestroyEnv: 'true'
 ```
-- Dont forget to update the applied variable
+- Dont forget to update the `env.Applied` variable
 
 ```
 env:
@@ -94,11 +95,11 @@ kubectl config view --kubeconfig .kube/do-custom.yaml
 kubectl config get-contexts --kubeconfig .kube/do-custom.yaml
 ```
 ---
-# Setup Socks WebApp Example(Optional)
-- navigate to docks kubernetes folder: 
+# Setup Monitorring and Logging
+- navigate to socks kubernetes folder: 
 `cd socks-microservices-demo/deploy/kubernetes`
 
-- You can confirm the current cluster that kubectl is currently executing on:
+- You can confirm the current cluster that kubectl is currently executing on. If you used the cluster-name of the infra.tf file as-it, then it should be `do-custom`:
 ```
 kubectl config current-context 
 ```
@@ -108,17 +109,36 @@ kubectl config get-contexts
 kubectl config use-context valid-cluster-name-here 
 ```
 
-- Now Create the desired namespace in the current cluster (you should still be in the kubernetes folder)
+- Now Create the desired namespaces in the current cluster (you should still be in the kubernetes folder)
+
+~~kubectl create namespace kube-system~~
 ```
-kubectl create namespace sock-shop
-```
-- install the application workloads
-```
-kubectl apply -f complete-demo.yaml
+kubectl create -f manifests-monitoring
 ```
 
-- Once it's done, head over to rancher cluster and launch your application.
+- Check if `kube-system` namespace exists in the cluster
+```
+kubectl get namespaces
+kubectl -n kube-system get deployments
+```
 
+- If kibana and elastic search exist already, you can delete them.
+> Only because this is a test environent of course.
+```
+kubectl delete deployments elasticsearch -n kube-system
+kubectl delete deployments kibana -n kube-system
+
+kubectl delete deployments elasticsearch -n logging
+kubectl delete deployments kibana -n logging
+``` 
+
+Add elastic and kibana and elastic to `kube-system` namespace
+```
+kubectl create -f manifests-logging-cluster
+```
+
+```
+>if you get an error, you can just wait for a while or try again.
 
 ---
 # Setup Fleet for CD
@@ -145,7 +165,7 @@ helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
 helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
     fleet https://github.com/rancher/fleet/releases/download/v0.6.0-rc.5/fleet-0.6.0-rc.5.tgz
 ```
-> if that fails from your local machine, try the command from kubectl within the each cluster(eg.`do-custom` and `local`)  
+> If a failure occurs here or down the workflow, run the above commans from kubectl within the each cluster(eg.`do-custom` and `local`)  
 
 - Fleet should be ready to use now for single/multi cluster. You can check the status of the Fleet controller pods by running the below commands.
 ```
