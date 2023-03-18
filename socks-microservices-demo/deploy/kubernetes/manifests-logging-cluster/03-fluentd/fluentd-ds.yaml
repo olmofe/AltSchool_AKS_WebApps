@@ -16,9 +16,9 @@ spec:
     spec:
       serviceAccount: fluentd
       serviceAccountName: fluentd
-      # tolerations:
-      # - key: node-role.kubernetes.io/master
-      #   effect: NoSchedule
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
       containers:
       - name: fluentd
         image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
@@ -31,6 +31,13 @@ spec:
             value: "http"
           - name: FLUENTD_SYSTEMD_CONF
             value: disable
+            #from internet
+          - name:  SYSLOG_HOST
+            value: "sysloghost"
+          - name:  SYSLOG_PORT
+            value: "514"
+          - name:  SYSLOG_PROTOCOL
+            value: "udp" 
         resources:
           limits:
             memory: 512Mi

@@ -172,7 +172,7 @@ helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
 helm -n cattle-fleet-system upgrade -i --create-namespace --wait \
     fleet https://github.com/rancher/fleet/releases/download/v0.6.0-rc.5/fleet-0.6.0-rc.5.tgz
 ```
-> If a failure occurs here or down the workflow, run the above commans from kubectl within the each cluster(eg.`do-custom` and `local`)  
+> If a failure occurs here or down the workflow, run the above commands from kubectl within the desired cluster(eg.`do-custom` and `local`)  
 
 - Fleet should be ready to use now for single/multi cluster. You can check the status of the Fleet controller pods by running the below commands.
 ```

@@ -5,7 +5,7 @@ metadata:
   labels:
     type: local
 spec:
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Recycle
   storageClassName: local-path
   capacity:
     storage: 3Gi
@@ -21,7 +21,8 @@ metadata:
   labels:
     type: local
 spec:
-  persistentVolumeReclaimPolicy: Delete
+#using recycle as dynamic volume provisioning doesnt seem to work for vanilla rke/k3s
+  persistentVolumeReclaimPolicy: Recycle 
   storageClassName: local-path
   capacity:
     storage: 3Gi
@@ -38,7 +39,7 @@ metadata:
   labels:
     type: local
 spec:
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Recycle
   storageClassName: local-path
   capacity:
     storage: 3Gi
