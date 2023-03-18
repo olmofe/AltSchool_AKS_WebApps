@@ -242,6 +242,7 @@ kubectl delete namespace sock-shop
 The scope of this guide does not cover private repos or air-gapped envoronments.
 
 - paste the `socks-git-repo.yaml` content in rancher and select `Create`
+- If unedited, Fleet will now track the manifests of socks shop and logging
 
 > You can also use the form UI to add the GitRepo details.
 - Check the status of what the fleet is doing
