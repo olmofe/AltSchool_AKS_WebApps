@@ -21,7 +21,7 @@ metadata:
   labels:
     type: local
 spec:
-#using Delete as dynamic volume provisioning doesnt seem to work for vanilla rke/k3s
+#using Delete for dynamic provisioning
   persistentVolumeReclaimPolicy: Delete 
   storageClassName: longhorn-test
   capacity:
