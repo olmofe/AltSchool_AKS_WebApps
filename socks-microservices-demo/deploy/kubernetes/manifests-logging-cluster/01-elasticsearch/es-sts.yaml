@@ -69,11 +69,14 @@ spec:
           privileged: true
   volumeClaimTemplates:
   - metadata:
-      name: data
+      name: elasticsearch-data
+      namespace: kube-system
       labels:
         app: elasticsearch
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes:
+            - ReadWriteOnce
+      # accessModes: [ "ReadWriteOnce" ]
       storageClassName: "longhorn-test"
       # storageClassName: "local-path"
       resources:
