@@ -5,8 +5,8 @@ metadata:
   labels:
     type: local
 spec:
-  persistentVolumeReclaimPolicy: Recycle
-  storageClassName: local-path
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: longhorn-test
   capacity:
     storage: 3Gi
   accessModes:
@@ -21,9 +21,9 @@ metadata:
   labels:
     type: local
 spec:
-#using recycle as dynamic volume provisioning doesnt seem to work for vanilla rke/k3s
-  persistentVolumeReclaimPolicy: Recycle 
-  storageClassName: local-path
+#using Delete as dynamic volume provisioning doesnt seem to work for vanilla rke/k3s
+  persistentVolumeReclaimPolicy: Delete 
+  storageClassName: longhorn-test
   capacity:
     storage: 3Gi
   accessModes:
@@ -39,8 +39,8 @@ metadata:
   labels:
     type: local
 spec:
-  persistentVolumeReclaimPolicy: Recycle
-  storageClassName: local-path
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: longhorn-test
   capacity:
     storage: 3Gi
   accessModes:
