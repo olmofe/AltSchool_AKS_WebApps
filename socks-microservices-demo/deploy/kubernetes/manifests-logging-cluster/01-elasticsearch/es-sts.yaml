@@ -69,7 +69,7 @@ spec:
           privileged: true
   volumeClaimTemplates:
   - metadata:
-      name: elasticsearch-data
+      name: data
       namespace: kube-system
       labels:
         app: elasticsearch
