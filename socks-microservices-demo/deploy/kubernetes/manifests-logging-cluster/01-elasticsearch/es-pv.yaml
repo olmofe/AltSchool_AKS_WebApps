@@ -21,7 +21,7 @@ metadata:
   labels:
     type: local
 spec:
-#using Delete for dynamic provisioning
+#using Delete for longhorn dynamic provisioning
   persistentVolumeReclaimPolicy: Delete 
   storageClassName: longhorn-test
   capacity:
