@@ -108,29 +108,23 @@ kubectl config current-context
 kubectl config get-contexts
 kubectl config use-context valid-cluster-name-here 
 ```
-
-- Now install the monitoring workloads (you should still be in the kubernetes folder)
+- [Optional] Review /manifests-monitoring folder for any customizations you would like to do.
+- Now Add the monitoring workloads (while still inside `socks-microservices-demo/deploy/kubernetes` folder)
 
 ~~kubectl create namespace kube-system~~
 ```
 kubectl create -f manifests-monitoring
 ```
 
-- Check if `kube-system` namespace exists in the cluster
+- [Ignore this] Just some random, maybe useful commands
 ```
 kubectl get namespaces
 kubectl -n kube-system get deployments
 kubectl get deployments -n logging
-``` 
-
-- If kibana and elastic search exist already, you can delete them.
-> Only because this is a test environent of course.
-```
-kubectl delete deployments elasticsearch -n namespace-where-it-is
 kubectl delete deployments kibana -n namespace-where-it-is
 ``` 
-
-Add elastic and kibana and elastic to `logging` namespace (while still inside `socks-microservices-demo/deploy/kubernetes` folder)
+- [Optional] Review /manifests-logging-cluster folder
+Add elastic and kibana to `logging` namespace (while still inside `socks-microservices-demo/deploy/kubernetes` folder)
 ```
 kubectl create -R -f manifests-logging-cluster 
 ```
@@ -143,10 +137,15 @@ kubectl create -f manifests-logging-cluster/03-fluentd
 ```
 > It's fine if you get an error that a resource already exists
 
-> if you get other errors, you can just wait for a while or try again.
+> if you get other errors, you can just delete the namespace, wait for a while or try again.
+```
+kubectl delete namespace logging
+```
 
-- go to the workload in Rancher UI `do-cluster | Deployments | Namespace: logging | Endpoints`
-- click on the endpoint and proceed to use kibana
+- go to the workload in Rancher UI `do-cluster | Deployments 
+- Grafana and Prometheus will be in `Namespace: monitoring`
+- Kibana will be in `Namespace: logging`
+- click on the endpoints and proceed to use their UI.
 
 ---
 # Setup Fleet for CD
