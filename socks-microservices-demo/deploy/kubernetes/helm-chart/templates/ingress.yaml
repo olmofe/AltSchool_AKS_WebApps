@@ -14,19 +14,20 @@ spec:
           service:
             name: front-end
             port:
-              number: 443
+              number: 80
         path: /
         pathType: Prefix
-    {{- if .Values.host }}
     host: {{ .Values.host }}
+    # {{- if .Values.host }}
     # host: {{ template "host" . }}
-    {{- end }}
+    # {{- end }}
   {{- if .Values.ingress.tlsSecretName }}
   tls:
   - secretName: {{ .Values.ingress.tlsSecretName }}
-    {{- if .Values.host }}
-    hosts:
-    - {{ .Values.host }}
+    hosts: {{ .Values.host }}
+    # {{- if .Values.host }}
+    # hosts:
+    # - {{ .Values.host }}
     # - {{ template "host" . }}
     {{- end }}
   {{- end }}
