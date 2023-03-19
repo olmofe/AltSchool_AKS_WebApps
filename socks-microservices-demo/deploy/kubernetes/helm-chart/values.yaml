@@ -12,7 +12,10 @@ istio:
 
 ingress:
     annotations:
-        kubernetes.io/ingress.class: nginx
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        certmanager.k8s.io/issuer: "letsencrypt-prod"
+        certmanager.k8s.io/acme-challenge-type: http01
     labels: {}
     host: 'olmofe.live'   #host should be updated
     tlsSecretName: 'external-tls'
