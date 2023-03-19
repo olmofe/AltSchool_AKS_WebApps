@@ -7,8 +7,10 @@ metadata:
 {{ toYaml .Values.ingress.labels | indent 4 }}
   name: {{ template "fullname" .}}-socks-ingress
 spec:
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: {{ .Values.ingress.host }}
+    http:
       paths:
       - backend:
           service:
@@ -17,16 +19,16 @@ spec:
               number: 80
         path: /
         pathType: Prefix
-    host: {{ .Values.ingress.host }}
     # {{- if .Values.host }}
     # host: {{ template "host" . }}
     # {{- end }}
-  {{- if .Values.ingress.tlsSecretName }}
+{{- if .Values.ingress.tlsSecretName }}
   tls:
-  - secretName: {{ .Values.ingress.tlsSecretName }}
-    - {{ .Values.ingress.host }}
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Values.ingress.tlsSecretName }}
     # {{- if .Values.host }}
     # hosts:
     # - {{ template "host" . }}
     # {{- end }}
-  {{- end }}
+{{- end }}
