@@ -304,5 +304,50 @@ kubectl delete ServiceAccount node-exporter -n monitoring
 
 > If something else goes wrong, you can delete the repo, wait a while for any created namespaces to be deleted, then try again.
 
-### **Add custom DNS**
+### **Customizing Socks Demo**
+> Dependency on nginx-ingress has been included in socks shop example
+- Ingress and ingress controllers residing in RKE-launched clusters are powered by Nginx.
+navigate to ingress folder `cd  socks-microservices-demo\deploy\kubernetes\helm-chart`
+- Edit `values.yaml`
+
+**[Optional] Adding Custom DNS**
+- In your domain provider's portal, add the IP of any of the cluster servers to the A records (ingress will route them automatically).
+
+- generate certificate signing request.
+- Head over to the CLI in your cluster [>_] (top right) and generate private key(follow through with all the prompts).
+```
+openssl genrsa -out myuser.key 2048
+openssl req -new -key myuser.key -out myuser.csr
+```
+- find the private key
+```
+ls *.key
+```
+- from the above result, print out the key contents and save somewhere secure for now eg.
+```
+cat myuser.key
+```
+- find the csr directoy
+```
+ls *.csr
+```
+- from the above result, print out the csr contents eg.
+```
+cat myuser.csr
+```
+- Copy the csr file contents and submit with your domain provider.
+- your domain provider will provide a certificate, copy and save that too. 
+> we will use the rancher secret manager to apply the secret for security purposes.
+- Naviage to your cluster - `More Resources | Core | Secrets`
+- Click Click `Create`. -> `TLS Certificate`
+- Enter a **unique** name for the secret(lowercase)(eg. external-tls).
+- select the namespace where the socks demo app will be deployed.(eg.socks-shop)
+- In the Private Key field, copy and paste your certificate's private key into the text box (include the header and footer).
+- In the certificate field, copy and paste the certificate given to you(usually, you can copy everything provided in the test or file).
+Click Create.
+- navigate to the helm chart folder `cd socks-microservices-demo\deploy\kubernetes\helm-chart`
+- Edit the values.yaml
+- Add yourdomain hostname to `host` field without the prefix (eg.[host: **socks.olmofe.live**](https://socks.olmofe.live/).  **dont** add www. or https://)
+- Add the secret name of the secret that you created to `tlsSecretName:` (eg. tlsSecretName: 'external-tls')
+- save your changes and push to your repo, Fleet will automatically appy the changes.
 

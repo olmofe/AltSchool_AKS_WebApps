@@ -149,6 +149,10 @@ ENV/
 env.bak/
 venv.bak/
 .kube/do-custom.yaml
+
+#certificates
+.certs
+socks-TLS.yaml
  
 # Spyder project settings
 .spyderproject
