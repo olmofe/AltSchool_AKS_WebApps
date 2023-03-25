@@ -1,7 +1,7 @@
 name: 'Terraform'
 env:
   Applied: 'true'
-  DestroyEnv: 'false'
+  DestroyEnv: 'true'
   ACCESS_KEY: ${{ secrets.DO_ACCESS_KEY }}
   DEFAULT_PASS: ${{ secrets.RANCHER_DEFAULT_PASS }}
   # IMPORTANT, CHANGE THIS TO TRUE IF THE INFRA HAS ALREADY BEEN DEPLOYED
